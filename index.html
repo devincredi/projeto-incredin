@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrediIn Recuperação de Crédito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy-900:#0B1E3D;
+    --navy-700:#14315C;
+    --blue-500:#2C5AA0;
+    --brass-400:#B08D57;
+    --brass-200:#DCC9A3;
+    --paper:#F4F6F9;
+    --paper-dark:#E8ECF2;
+    --white:#FFFFFF;
+    --ink-600:#384158;
+    --ink-300:#8892A6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink-600);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    color:var(--navy-900);
+    margin:0;
+    font-weight:500;
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.04em;
+  }
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 32px;}
+
+  /* Letterhead top bar */
+  .letterhead{
+    background:var(--navy-900);
+    color:var(--brass-200);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.06em;
+  }
+  .letterhead .wrap{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:8px 32px;flex-wrap:wrap;gap:6px;
+  }
+
+  /* Header */
+  header{
+    background:var(--white);
+    border-bottom:1px solid var(--paper-dark);
+    position:sticky;top:0;z-index:50;
+  }
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    padding-top:18px;padding-bottom:18px;
+  }
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand svg{width:38px;height:38px;flex-shrink:0;}
+  .brand-name{font-family:'Fraunces', serif;font-size:20px;color:var(--navy-900);font-weight:600;}
+  .brand-sub{font-family:'IBM Plex Mono', monospace;font-size:10px;color:var(--ink-300);letter-spacing:0.08em;text-transform:uppercase;}
+  .navlinks{display:flex;gap:28px;font-size:14px;color:var(--navy-700);}
+  .navlinks a:hover{color:var(--blue-500);}
+  .cta-btn{
+    background:var(--navy-900);color:var(--white)!important;
+    padding:11px 22px;border-radius:2px;font-size:14px;font-weight:500;
+    border:1px solid var(--navy-900);transition:all .2s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .cta-btn:hover{background:var(--white);color:var(--navy-900)!important;}
+  .menu-toggle{display:none;}
+
+  /* Hero */
+  .hero{
+    padding:96px 0 100px;
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg, var(--paper) 0%, var(--paper) 70%, var(--paper-dark) 100%);
+  }
+  .hero .wrap{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;font-size:12px;letter-spacing:0.1em;
+    color:var(--brass-400);text-transform:uppercase;margin-bottom:18px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--brass-400);display:inline-block;}
+  .hero h1{font-size:44px;line-height:1.15;max-width:560px;}
+  .hero h1 em{font-style:italic;color:var(--blue-500);}
+  .hero p.lead{font-size:17px;color:var(--ink-600);max-width:480px;margin:22px 0 32px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-outline{
+    padding:11px 22px;border:1px solid var(--navy-700);border-radius:2px;
+    color:var(--navy-700);font-size:14px;font-weight:500;
+  }
+  .btn-outline:hover{background:var(--navy-900);color:var(--white);}
+
+  .protocol-line{
+    margin-top:44px;padding-top:20px;border-top:1px dashed var(--ink-300);
+    font-family:'IBM Plex Mono', monospace;font-size:12px;color:var(--ink-300);
+    display:flex;gap:32px;flex-wrap:wrap;
+  }
+  .protocol-line b{color:var(--navy-700);font-weight:500;}
+
+  /* Seal */
+  .seal-wrap{display:flex;justify-content:center;align-items:center;}
+  .seal{width:100%;max-width:320px;}
+  .seal-ring-text{
+    animation:spin 40s linear infinite;
+    transform-origin:200px 200px;
+  }
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion:reduce){.seal-ring-text{animation:none;}}
+
+  /* Services */
+  .section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:32px;}
+  .section-head p{color:var(--ink-600);margin-top:14px;font-size:15.5px;}
+
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--paper-dark);border:1px solid var(--paper-dark);}
+  .service-card{
+    background:var(--white);padding:32px 26px;
+  }
+  .service-card .num{font-family:'IBM Plex Mono', monospace;color:var(--brass-400);font-size:13px;margin-bottom:18px;display:block;}
+  .service-card h3{font-size:18px;margin-bottom:10px;}
+  .service-card p{font-size:14px;color:var(--ink-600);margin:0;}
+
+  /* Process - registry style */
+  .registry{background:var(--navy-900);color:var(--paper);}
+  .registry .section-head h2{color:var(--white);}
+  .registry .section-head p{color:var(--brass-200);}
+  .registry .eyebrow{color:var(--brass-400);}
+  .steps{border-top:1px solid rgba(255,255,255,0.15);}
+  .step{
+    display:grid;grid-template-columns:70px 1fr 1fr;gap:24px;
+    padding:26px 0;border-bottom:1px solid rgba(255,255,255,0.15);align-items:baseline;
+  }
+  .step .step-num{font-family:'IBM Plex Mono', monospace;color:var(--brass-400);font-size:15px;}
+  .step h3{color:var(--white);font-size:18px;font-weight:500;}
+  .step p{color:#B7C1D6;font-size:14px;margin:0;}
+
+  /* Trust / compliance box */
+  .compliance-box{
+    border:1px solid var(--brass-400);
+    background:var(--white);
+    padding:40px;
+    position:relative;
+    display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:flex-start;
+  }
+  .compliance-box::before,
+  .compliance-box::after{
+    content:"";position:absolute;width:14px;height:14px;border:1px solid var(--brass-400);
+  }
+  .compliance-box::before{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .compliance-box::after{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .compliance-box svg{width:44px;height:44px;flex-shrink:0;}
+  .compliance-box h3{font-size:19px;margin-bottom:10px;}
+  .compliance-box p{font-size:14.5px;margin:0 0 8px;}
+  .compliance-box ul{margin:12px 0 0;padding-left:18px;font-size:14px;}
+  .compliance-box li{margin-bottom:6px;}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+  .contact-card{
+    background:var(--white);border:1px solid var(--paper-dark);padding:36px;
+  }
+  .contact-card .label{
+    font-family:'IBM Plex Mono', monospace;font-size:11px;letter-spacing:0.08em;
+    color:var(--ink-300);text-transform:uppercase;margin-bottom:6px;display:block;
+  }
+  .contact-row{margin-bottom:22px;}
+  .contact-row:last-child{margin-bottom:0;}
+  .contact-row .value{font-size:15.5px;color:var(--navy-900);}
+  .whatsapp-box{
+    background:var(--navy-900);color:var(--white);padding:36px;
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .whatsapp-box h3{color:var(--white);font-size:22px;margin-bottom:12px;}
+  .whatsapp-box p{color:#B7C1D6;font-size:14.5px;margin:0 0 26px;}
+  .wa-btn{
+    background:var(--white);color:var(--navy-900);padding:14px 24px;
+    border-radius:2px;font-weight:600;font-size:15px;display:inline-flex;
+    align-items:center;gap:10px;width:fit-content;
+  }
+  .wa-btn:hover{background:var(--brass-200);}
+
+  /* Footer */
+  footer{background:var(--navy-900);border-top:1px solid rgba(255,255,255,0.12);padding:36px 0;}
+  footer .wrap{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px;}
+  footer p{color:#8493AF;font-size:12.5px;margin:0;font-family:'IBM Plex Mono', monospace;line-height:1.8;}
+
+  /* Reveal on scroll */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr;}
+    .seal-wrap{order:-1;max-width:220px;margin:0 auto 20px;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .step{grid-template-columns:50px 1fr;}
+    .step p{grid-column:2;}
+    .contact-grid{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+    .compliance-box{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .services-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+    .letterhead .wrap{font-size:10px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="letterhead">
+  <div class="wrap">
+    <span>RUA DO CARMO, Nº 7 — CENTRO — RIO DE JANEIRO/RJ</span>
+    <span class="mono">ATENDIMENTO OFICIAL VIA WHATSAPP BUSINESS</span>
+  </div>
+</div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="28" stroke="#0B1E3D" stroke-width="1.5"/>
+        <circle cx="30" cy="30" r="22" stroke="#B08D57" stroke-width="1"/>
+        <text x="30" y="37" font-family="Fraunces, serif" font-size="20" fill="#0B1E3D" text-anchor="middle">CI</text>
+      </svg>
+      <div>
+        <div class="brand-name">CrediIn</div>
+        <div class="brand-sub">Recuperação de Crédito</div>
+      </div>
+    </div>
+    <div class="navlinks">
+      <a href="#servicos">Serviços</a>
+      <a href="#processo">Como Funciona</a>
+      <a href="#confianca">Compliance</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Recuperação de Crédito · Rio de Janeiro</div>
+      <h1>Cobrança conduzida com <em>método</em>, transparência e respaldo jurídico.</h1>
+      <p class="lead">A CrediIn atua na regularização de débitos entre credores e devedores, com processos formais de negociação, emissão de boleto e atendimento por canais oficiais.</p>
+      <div class="protocol-line">
+        <span><b>Sede:</b> Rua do Carmo, 7 — Centro, RJ</span>
+        <span><b>Registro:</b> Ativo desde a fundação</span>
+      </div>
+    </div>
+    <div class="seal-wrap">
+      <svg class="seal" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <g class="seal-ring-text">
+          <path id="ringPath" d="M 200,200 m -160,0 a 160,160 0 1,1 320,0 a 160,160 0 1,1 -320,0" fill="none"/>
+          <text font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="3" fill="#B08D57">
+            <textPath href="#ringPath">• RECUPERAÇÃO DE CRÉDITO • RIO DE JANEIRO • ATENDIMENTO OFICIAL • CENTRO • RJ </textPath>
+          </text>
+        </g>
+        <circle cx="200" cy="200" r="130" stroke="#0B1E3D" stroke-width="1.5" fill="#F4F6F9"/>
+        <circle cx="200" cy="200" r="118" stroke="#B08D57" stroke-width="1" fill="none"/>
+        <text x="200" y="188" font-family="Fraunces, serif" font-size="46" fill="#0B1E3D" text-anchor="middle" font-weight="600">CI</text>
+        <text x="200" y="222" font-family="IBM Plex Mono, monospace" font-size="12" fill="#14315C" text-anchor="middle" letter-spacing="2">CREDIIN</text>
+        <line x1="150" y1="235" x2="250" y2="235" stroke="#B08D57" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicos">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Serviços</div>
+      <h2>O que fazemos</h2>
+      <p>Atendimento humanizado e amigável para tratativas e mediação entre devedores e credores, sempre olhando para um serviço de qualidade e a satisfação de ambas as partes.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <span class="num">01</span>
+        <h3>Negociação de Dívidas</h3>
+        <p>Propostas de acordo adequadas à realidade financeira de cada devedor, com condições claras e formalizadas.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">02</span>
+        <h3>Emissão de Boleto</h3>
+        <p>Geração de boletos para pagamento à vista ou de entrada, com envio direto pelo canal oficial.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">03</span>
+        <h3>Atendimento via WhatsApp</h3>
+        <p>Canal oficial de comunicação, com atendimento automatizado e transferência para agente humano quando necessário.</p>
+      </div>
+      <div class="service-card">
+        <span class="num">04</span>
+        <h3>Parcelamento Assistido</h3>
+        <p>Planos de parcelamento acompanhados até a quitação, com confirmação formal de cada etapa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="registry section" id="processo">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Como Funciona</div>
+      <h2>Fluxo de atendimento</h2>
+      <p>O processo segue etapas fixas, na seguinte ordem, garantindo segurança para credor e devedor.</p>
+    </div>
+    <div class="steps reveal">
+      <div class="step">
+        <span class="step-num">01</span>
+        <h3>Localização do devedor</h3>
+        <p>Identificação e localização do devedor para viabilizar o contato.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <h3>Início de contato</h3>
+        <p>Abertura do canal de atendimento e apresentação da situação do débito.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <h3>Tratativas e negociação</h3>
+        <p>Diálogo para construção de um acordo justo entre devedor e credor.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <h3>Emissão e envio</h3>
+        <p>Boleto ou carnê enviado pelo canal oficial de atendimento.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">05</span>
+        <h3>Baixa formal</h3>
+        <p>Comprovante de quitação enviado ao devedor e prestação de contas ao credor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="confianca">
+  <div class="wrap">
+    <div class="compliance-box reveal">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 4 L42 12 V22 C42 33 34.5 40.5 24 44 C13.5 40.5 6 33 6 22 V12 L24 4Z" stroke="#0B1E3D" stroke-width="1.5"/>
+        <path d="M16 24 L21 29 L32 17" stroke="#B08D57" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div>
+        <h3>Compromisso com boas práticas e a LGPD</h3>
+        <p>Nenhum dado contratual é compartilhado antes da confirmação de identidade do titular do débito.</p>
+        <ul>
+          <li>Sem ameaças ou coação em qualquer etapa da cobrança.</li>
+          <li>Remoção imediata da base de contato em caso de identificação divergente ("não sou eu").</li>
+          <li>Registro e trilha de auditoria de todas as tratativas realizadas pelo canal oficial.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>CREDIIN RECUPERAÇÃO DE CRÉDITO<br>
+    RUA DO CARMO, Nº 7 — CENTRO — RIO DE JANEIRO/RJ — CEP 28640-000</p>
+    <p>© 2026 CREDIIN. TODOS OS DIREITOS RESERVADOS.<br>
+    CANAL OFICIAL DE ATENDIMENTO: WHATSAPP BUSINESS API.</p>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:0.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
